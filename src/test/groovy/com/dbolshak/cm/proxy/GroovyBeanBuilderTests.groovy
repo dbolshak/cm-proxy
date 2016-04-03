@@ -1,6 +1,6 @@
 package com.dbolshak.cm.proxy
 
-import com.cloudera.api.ClouderaManagerClientBuilder
+import com.cloudera.api.DataView
 import org.junit.Test
 import org.springframework.context.ApplicationContext
 import org.springframework.context.support.GenericGroovyApplicationContext
@@ -13,9 +13,12 @@ public class GroovyBeanBuilderTests {
     public void testSimple() {
         ApplicationContext context = new GenericGroovyApplicationContext('file:config/context.groovy');
 
-        ClouderaManagerClientBuilder clouderaManagerClientBuilder = context.getBean('clouderaManagerClientBuilderAdapter',
-                ClouderaManagerClientBuilderAdapter.class).clouderaManagerClientBuilder
+        def bean = context
+                .getBean('rootResourceHolder', RootResourceHolder.class)
+                .rootResource
+                .clustersResource
+                .readClusters(DataView.EXPORT)
 
-        assertEquals('http://192.168.1.11:7180/api/', clouderaManagerClientBuilder.generateAddress())
+        assertEquals('ApiClusterList{values=[]}', bean.toString())
     }
 }

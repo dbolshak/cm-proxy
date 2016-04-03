@@ -1,10 +1,20 @@
 package com.dbolshak.cm.proxy
 
+import com.cloudera.api.ClouderaManagerClientBuilder
 import com.cloudera.api.v11.RootResourceV11
 
 /**
  * Created by dbolshak on 03/04/16.
  */
 class RootResourceHolder {
-    RootResourceV11 rootResource
+    final RootResourceV11 rootResource
+
+    RootResourceHolder(ClouderaManagerClientBuilder clouderaManagerClientBuilder, String host,
+                                        String userName, String password) {
+        rootResource = clouderaManagerClientBuilder
+                .withHost(host)
+                .withUsernamePassword(userName, password)
+                .build()
+                .rootV11
+    }
 }

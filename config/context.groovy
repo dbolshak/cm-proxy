@@ -1,16 +1,19 @@
 package com.dbolshak.cm.proxy
 
 import com.cloudera.api.ClouderaManagerClientBuilder
+import com.cloudera.api.DataView
+import com.cloudera.api.model.ApiClusterList
 
 beans {
     clouderaManagerClientBuilder(ClouderaManagerClientBuilder)
 
-    clouderaManagerClientBuilderAdapter(ClouderaManagerClientBuilderAdapter) { bean ->
-        clouderaManagerClientBuilder = clouderaManagerClientBuilder
-        host     = '192.168.1.11'
-        userName = 'admin'
-        password = 'admin'
+    rootResourceHolder(RootResourceHolder, clouderaManagerClientBuilder,
+            '192.168.1.11', 'admin', 'admin'
+    )
 
-        bean.initMethod = 'init'
+    apiClusterList(ApiClusterList) {
+        clusters = clouderaManagerClientBuilderAdapter
+                .rootResource
+                .readClusters(DataView.EXPORT)
     }
 }
