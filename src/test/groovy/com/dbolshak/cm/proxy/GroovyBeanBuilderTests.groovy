@@ -17,6 +17,6 @@ public class GroovyBeanBuilderTests {
 
         def bean = context.getBean('rootResourceHolder', RootResourceHolder.class)
 
-        assertEquals('ApiClusterList{values=[ApiCluster{name=cluster, version=CDH5, fullVersion=5.5.1}]}', bean.rootResource.clustersResource.readClusters(DataView.EXPORT))
+        assertEquals('ApiClusterList{values=[ApiCluster{name=cluster, version=CDH5, fullVersion=5.5.1}]}', bean.rootResource.clustersResource.readClusters(DataView.EXPORT).toString())
     }
 }
