@@ -1,22 +1,22 @@
 package com.dbolshak.cm.proxy
 
 import com.cloudera.api.ClouderaManagerClientBuilder
-//import com.cloudera.api.DataView
-//import com.cloudera.api.model.ApiClusterList
+import org.springframework.beans.factory.config.BeanDefinition
 
 beans {
-    clouderaManagerClientBuilder(ClouderaManagerClientBuilder)
+    clientBuilder(ClouderaManagerClientBuilder) { bean ->
+
+        bean.scope = BeanDefinition.SCOPE_PROTOTYPE
+        bean.lazyInit = true
+    }
 
     rootResourceHolder(
             RootResourceHolder,
-            clouderaManagerClientBuilder,
-            '192.168.1.11',
+            clientBuilder,
+            'uat-5-scm.kyc.megafon.ru',
             'admin',
-            'admin'
-    )
-//    apiClusterList(ApiClusterList) {
-//        clusters = rootResourceHolder
-//                .rootResource
-//                .readClusters(DataView.EXPORT)
-//    }
+            'admin') { bean ->
+        bean.scope = BeanDefinition.SCOPE_PROTOTYPE
+        bean.lazyInit = true
+    }
 }

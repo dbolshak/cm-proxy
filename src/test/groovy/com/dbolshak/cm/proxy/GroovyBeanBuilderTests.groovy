@@ -1,7 +1,9 @@
 package com.dbolshak.cm.proxy
 
 import com.cloudera.api.DataView
+
 import org.junit.Test
+
 import org.springframework.context.ApplicationContext
 import org.springframework.context.support.GenericGroovyApplicationContext
 
@@ -13,12 +15,8 @@ public class GroovyBeanBuilderTests {
     public void testSimple() {
         ApplicationContext context = new GenericGroovyApplicationContext('file:config/context.groovy');
 
-        def bean = context
-                .getBean('rootResourceHolder', RootResourceHolder.class)
-                .rootResource
-                .clustersResource
-                .readClusters(DataView.EXPORT)
+        def bean = context.getBean('rootResourceHolder', RootResourceHolder.class)
 
-        assertEquals('ApiClusterList{values=[]}', bean.toString())
+        assertEquals('ApiClusterList{values=[ApiCluster{name=cluster, version=CDH5, fullVersion=5.5.1}]}', bean.rootResource.clustersResource.readClusters(DataView.EXPORT))
     }
 }

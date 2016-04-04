@@ -9,9 +9,10 @@ import com.cloudera.api.v11.RootResourceV11
 class RootResourceHolder {
     final RootResourceV11 rootResource
 
-    RootResourceHolder(ClouderaManagerClientBuilder clouderaManagerClientBuilder, String host,
+
+    RootResourceHolder(ClouderaManagerClientBuilder clientBuilder, String host,
                                         String userName, String password) {
-        rootResource = clouderaManagerClientBuilder
+        rootResource = clientBuilder
                 .withHost(host)
                 .withUsernamePassword(userName, password)
                 .build()
