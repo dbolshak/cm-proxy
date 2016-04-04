@@ -9,14 +9,15 @@ import org.springframework.context.support.GenericGroovyApplicationContext
 
 import static org.junit.Assert.assertEquals
 
-public class GroovyBeanBuilderTests {
+class GroovyBeanBuilderTests {
 
     @Test
-    public void testSimple() {
+    void testSimple() {
         ApplicationContext context = new GenericGroovyApplicationContext('file:config/context.groovy');
 
         def bean = context.getBean('rootResourceHolder', RootResourceHolder.class)
 
-        assertEquals('ApiClusterList{values=[ApiCluster{name=cluster, version=CDH5, fullVersion=5.5.1}]}', bean.rootResource.clustersResource.readClusters(DataView.EXPORT).toString())
+        assertEquals('ApiClusterList{values=[ApiCluster{name=cluster, version=CDH5, fullVersion=5.5.1}]}',
+                bean.rootResource.clustersResource.readClusters(DataView.EXPORT).toString())
     }
 }

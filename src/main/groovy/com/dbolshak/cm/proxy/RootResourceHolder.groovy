@@ -9,7 +9,6 @@ import com.cloudera.api.v11.RootResourceV11
 class RootResourceHolder {
     final RootResourceV11 rootResource
 
-
     RootResourceHolder(ClouderaManagerClientBuilder clientBuilder, String host,
                                         String userName, String password) {
         rootResource = clientBuilder
